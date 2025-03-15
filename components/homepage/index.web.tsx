@@ -7,12 +7,13 @@ import PagerView from "react-native-pager-view";
 // components and utils
 import { SquareWidget } from "@/components/squareWidget";
 import { LineChart } from "@/components/LineChart";
-import { generateRandomDataPoint, type DataPoint } from "../utils/data";
+import { generateRandomDataPoint, type DataPoint } from "@/utils/data";
 import Animated, { useSharedValue } from "react-native-reanimated";
 import { PaginationIndicator } from "@/components/PaginationDots";
+import "@/app/global.css";
+// import { useNotification } from "@/context/NotificationContext";
 
 // constants
-const AnimatedPagerView = Animated.createAnimatedComponent(PagerView);
 
 export default function Index() {
   const [chartData, setChartData] = useState<DataPoint[]>(
@@ -35,13 +36,11 @@ export default function Index() {
     }, []),
   );
 
-  const pageRef = useRef<PagerView>(null);
-  const position = useSharedValue(0);
-  const totalPages = 3;
-
-  const onPageScroll = (event) => {
-    position.value = event.nativeEvent.position + event.nativeEvent.offset;
-  };
+  // const { expoPushToken, notification, error } = useNotification();
+  //
+  // if (error) return <></>;
+  //
+  // console.log(JSON.stringify(notification, null, 2));
 
   return (
     <>
@@ -55,24 +54,6 @@ export default function Index() {
         }}
       />
       <SafeAreaView style={styles.container}>
-        <AnimatedPagerView
-          style={styles.chartContainer}
-          initialPage={0}
-          onPageScroll={onPageScroll}
-          ref={pageRef}
-        >
-          <View key="1">
-            <LineChart data={chartData} lineColor="red" />
-          </View>
-          <View key="2">
-            <LineChart data={chartData} lineColor="darkgreen" />
-          </View>
-          <View key="3">
-            <LineChart data={chartData} lineColor="darkblue" />
-          </View>
-        </AnimatedPagerView>
-        {/* Pagination indicator */}
-        <PaginationIndicator totalPages={totalPages} position={position} />
         <View style={styles.widgetsContainer}>
           <SquareWidget
             name="功率"

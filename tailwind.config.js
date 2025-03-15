@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       colors: {
         primary: "#A349",
+        voltage: "#4477AA",
       },
     },
   },
